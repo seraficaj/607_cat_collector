@@ -8,3 +8,6 @@ from django.http import HttpResponse
 # Define the home view
 def home(request):
     return HttpResponse('<h1>Hewwo. I am your Django App. /ᐠUwUᐟ\ﾉ.</h1>')
+
+def about(request):
+    return HttpResponse('<h1>About the CatCollector</h1>')
