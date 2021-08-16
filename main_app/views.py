@@ -1,7 +1,13 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 from .models import Cat
 
-# Define the home view
+# Class Based Views
+class CatCreate(CreateView):
+    model = Cat
+    fields = '__all__'
+
+# Define view functions
 def home(request):
     return render(request, "home.html")
 
@@ -13,6 +19,7 @@ def about(request):
 def cats_index(request):
     cats = Cat.objects.all()
     return render(request, "cats/index.html", {"cats": cats})
+
 
 def cats_detail(request, cat_id):
   cat = Cat.objects.get(id=cat_id)
