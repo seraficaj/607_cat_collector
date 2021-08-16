@@ -21,7 +21,7 @@ cats = [
 
 # Define the home view
 def home(request):
-    return HttpResponse('<h1>Hewwo. I am your Django App. /ᐠUwUᐟ\ﾉ.</h1>')
+    return render(request, 'home.html')
 
 def about(request):
     return render(request, 'about.html')
