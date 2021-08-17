@@ -32,7 +32,8 @@ class Cat(models.Model):
 
 
 class Feeding(models.Model):
-    date = models.DateField()
+    # first positional argument overrides the label
+    date = models.DateField("feeding date")
     meal = models.CharField(
         max_length=1,
         # add the 'choices' field option
@@ -45,4 +46,8 @@ class Feeding(models.Model):
 
     def __str__(self):
         # get_thing_display method returns the second item in the meal tuple
-        return f"{self.get_meal_display()} on {self.date}"
+        return f"{self.get_meal_display()} on {self.date} for {self.cat}"
+
+    # change the default sort
+    class Meta:
+        ordering = ["-date"]
