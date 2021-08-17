@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Cat
+from django.views.generic import ListView, DetailView
+
+from .models import Cat, Toy
 
 # Class Based Views
 class CatCreate(CreateView):
@@ -37,3 +39,23 @@ def cats_index(request):
 def cats_detail(request, cat_id):
     cat = Cat.objects.get(id=cat_id)
     return render(request, "cats/detail.html", {"cat": cat})
+
+
+# Toy View Functions
+class ToyList(ListView):
+  model = Toy
+
+class ToyDetail(DetailView):
+  model = Toy
+
+class ToyCreate(CreateView):
+  model = Toy
+  fields = '__all__'
+
+class ToyUpdate(UpdateView):
+  model = Toy
+  fields = ['name', 'color']
+
+class ToyDelete(DeleteView):
+  model = Toy
+  success_url = '/toys/'
