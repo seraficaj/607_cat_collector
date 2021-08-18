@@ -38,11 +38,13 @@ def cats_index(request):
 
 
 def cats_detail(request, cat_id):
-    cat = Cat.objects.get(id=cat_id)
-    feeding_form = FeedingForm()
-    return render(
-        request, "cats/detail.html", {"cat": cat, "feeding_form": feeding_form}
-    )
+  cat = Cat.objects.get(id=cat_id)
+  toys_cat_doesnt_have = Toy.objects.exclude(id__in = cat.toys.all().values_list('id'))
+  feeding_form = FeedingForm()
+  return render(request, 'cats/detail.html', {
+    'cat': cat, 'feeding_form': feeding_form,
+    'toys': toys_cat_doesnt_have
+  })
 
 
 # Cat Feeding
@@ -80,3 +82,16 @@ class ToyUpdate(UpdateView):
 class ToyDelete(DeleteView):
     model = Toy
     success_url = "/toys/"
+
+def assoc_toy(request, cat_id, toy_id):
+  # Note that you can pass a toy's id instead of the whole object
+  Cat.objects.get(id=cat_id).toys.add(toy_id)
+  return redirect('detail', cat_id=cat_id)
+
+
+
+def unassoc_toy(request, cat_id, toy_id):
+    toy = Toy.objects.get(id=toy_id)
+    cat = Cat.objects.get(id=cat_id)
+    toy.cat_set.remove(cat)
+    return redirect('detail', cat_id=cat_id)
