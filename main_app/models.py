@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+# Import the User
+from django.contrib.auth.models import User
 
 # A tuple of 2-tuples
 MEALS = (("B", "Breakfast"), ("L", "Lunch"), ("D", "Dinner"))
@@ -24,6 +26,8 @@ class Cat(models.Model):
     description = models.TextField(max_length=250)
     age = models.IntegerField()
     toys = models.ManyToManyField(Toy)
+    # Add the foreign key linking to a user instance
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -43,7 +47,7 @@ class Feeding(models.Model):
         default=MEALS[0][0],
     )
     # Creates a cat_id FK property
-    cat = models.ForeignKey(Cat, on_delete=models.CASCADE)
+    cat = models.ForeignKey(Cat, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         # get_thing_display method returns the second item in the meal tuple

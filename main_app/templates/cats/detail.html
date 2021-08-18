@@ -38,6 +38,12 @@
         <tr>
           <td>{{feeding.date}}</td>
           <td>{{feeding.get_meal_display}}</td>
+          <td><a
+            class="btn red" 
+            href="{% url 'delete_feeding' feeding.cat_id feeding.id  %}"
+          >
+            DELETE
+          </a></td>
         </tr>
         {% endfor %}
       </tbody>
@@ -52,9 +58,12 @@
     <div class="card">
       <div class="card-content">
         <span class="card-title">
-          A <span style="color: {{ toy.color }}">{{ toy.color }}</span> {{ toy.name }}
+          A <span style="color: {{ toy.color }}"></span> 
+          {{ toy.name }}
         </span>
-      <a href="{% url 'unassoc_toy' cat.id toy.id %}"" class="btn btn-danger">DELETE</a>
+        <a href="{% url 'unassoc_toy' cat.id toy.id %}" class="btn red"
+          >DELETE</a
+        >
       </div>
     </div>
     {% endfor %} {% else %}
@@ -67,7 +76,8 @@
     <div class="card">
       <div class="card-content">
         <span class="card-title">
-          A <span style="color: {{ toy.color }}">{{ toy.color }}</span> {{ toy.name }}
+          A <span style="color: {{ toy.color }}">{{ toy.color }}</span> 
+          {{ toy.name }}
         </span>
       </div>
       <div class="card-action">
